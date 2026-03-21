@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+groq
+cohere
+chromadb
+pdfplumber
+python-dotenv
+streamlit
+requests

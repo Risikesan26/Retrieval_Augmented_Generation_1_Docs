@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from groq import Groq
 import chromadb
 import pdfplumber
-import cohere
+import ollama
 import io
 import os
 from dotenv import load_dotenv
@@ -13,23 +13,19 @@ load_dotenv()
 # CONFIG
 # =========================
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-COHERE_API_KEY = os.getenv("COHERE_API_KEY")
 
 if not GROQ_API_KEY:
     raise ValueError("Set GROQ_API_KEY in environment variables")
-if not COHERE_API_KEY:
-    raise ValueError("Set COHERE_API_KEY in environment variables")
+
 
 groq_client = Groq(api_key=GROQ_API_KEY)
 
-# Cohere client — embeddings only
-co = cohere.ClientV2(COHERE_API_KEY)
 
 # ✅ Fixed Chroma client
 chroma = chromadb.PersistentClient(path="./chroma_db")
 collection = chroma.get_or_create_collection("documents")
 
-app = FastAPI(title="RAG API (Groq + Cohere)")
+app = FastAPI(title="RAG API (Groq + Ollama)")
 
 # =========================
 # PDF TEXT EXTRACTION
@@ -46,18 +42,14 @@ def extract_text_from_pdf(file_bytes: bytes) -> list[str]:
     return chunks
 
 # =========================
-# EMBEDDINGS (Cohere)
+# EMBEDDINGS (Ollama)
 # =========================
 def get_embeddings(texts: list[str], input_type: str = "search_document") -> list[list[float]]:
-    response = co.embed(
-        texts=texts,
-        model="embed-english-v3.0",
-        input_type=input_type,
-        embedding_types=["float"]
+    response = ollama.embed(
+        model='nomic-embed-text',
+        input=texts
     )
-    # ✅ Safe extraction
-    return [list(e) for e in response.embeddings.float_]
-
+    return response['embeddings']
 # =========================
 # UPLOAD PDF
 # =========================
