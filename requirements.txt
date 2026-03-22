@@ -7,4 +7,4 @@ pdfplumber
 python-dotenv
 requests
 streamlit
-python-mulitpart
+python-multipart
