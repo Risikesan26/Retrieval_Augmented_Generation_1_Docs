@@ -4,7 +4,7 @@ import requests
 # =========================
 # CONFIG
 # =========================
-API_BASE = "http://127.0.0.1:8000"
+API_BASE = "https://retrieval-augmented-generation-1-docs.onrender.com"
 
 # =========================
 # PAGE SETUP
