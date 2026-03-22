@@ -6,6 +6,9 @@ import io
 import os
 from dotenv import load_dotenv
 from groq import Groq
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from starlette.responses import JSONResponse
+
 load_dotenv()
 
 # =========================
@@ -128,5 +131,6 @@ Question:
 # ROOT
 # =========================
 @app.get("/")
-def root():
-    return {"message": "RAG API running with Cohere embeddings + Groq LLM 🚀"}
+@app.head("/")
+async def root():
+    return JSONResponse(content={"message": "RAG API running 🚀"}, status_code=200)
