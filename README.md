@@ -9,7 +9,7 @@ A Retrieval-Augmented Generation (RAG) app that lets you upload PDF documents an
 | Layer | Tool |
 |---|---|
 | LLM | [Groq](https://groq.com) — `llama-3.3-70b-versatile` |
-| Embeddings | [Ollama](https://ollama.com) — `nomic-embed-text` |
+| Embeddings | [Cohere](https://cohere.com/) — `embed-english-v3.0` |
 | Vector DB | [ChromaDB](https://www.trychroma.com) |
 | Backend | [FastAPI](https://fastapi.tiangolo.com) |
 | Frontend | [Streamlit](https://streamlit.io) |
