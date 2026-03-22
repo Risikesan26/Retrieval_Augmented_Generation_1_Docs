@@ -5,5 +5,5 @@ cohere
 chromadb
 pdfplumber
 python-dotenv
-streamlit
 requests
+streamlit
